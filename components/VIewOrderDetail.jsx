@@ -52,7 +52,6 @@ const Summary = ({ order }) => {
     const geCartFromDb = async () => {
       try {
         const cartData = await getCart(order.cart);
-        console.log(cartData);
         setCart(cartData);
       } catch (error) {
         console.log(error);

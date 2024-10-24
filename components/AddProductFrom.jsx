@@ -17,7 +17,6 @@ function AddProductFrom({ isUpdate, handleModal, product, setProduct }) {
       images: images,
     };
     const r = await addProduct(data);
-    console.log(r);
 
     ref.current?.reset();
     setImages([]);

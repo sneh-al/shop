@@ -15,7 +15,6 @@ const HeaderEnd = () => {
   useEffect(() => {
     if (data && !user) {
       getUserByEmail(data.user.email).then((u) => {
-        console.log(u);
         addUser(u);
       });
     }

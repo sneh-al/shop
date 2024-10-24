@@ -52,7 +52,6 @@ const CartPage = () => {
         totalPrice: totalWithTax,
       });
       toast.success("Order placed successfully");
-      console.log(cartData, order);
     } catch (error) {
       console.log(error);
     }

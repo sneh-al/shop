@@ -63,7 +63,6 @@ export const getUserOrders = async (email) => {
   try {
     await connectDB();
     const user = await User.findOne({ email }).select("-password");
-    console.log(user);
     const query = { userId: user._id };
     const orders = await Order.find(query);
     return JSON.parse(JSON.stringify(orders));
