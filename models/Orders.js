@@ -1,28 +1,18 @@
 import mongoose, { Schema, model } from "mongoose";
 
 const OrdersShema = new Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  customer: {
-    type: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
-
-  products: {
-    type: Array,
-    required: true,
-  },
-  total: {
-    type: Number,
-    required: true,
-  },
+  customerName: { type: String, required: true },
+  cart: { type: mongoose.Schema.Types.ObjectId, ref: "Cart", required: true },
   date: {
     type: Date,
     default: Date.now,
   },
+  totalPrice: { type: Number, required: true },
 });
 
 const Order = mongoose.models?.Orders || model("Orders", OrdersShema);

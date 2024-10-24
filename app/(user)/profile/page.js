@@ -9,7 +9,6 @@ import Section from "@/components/ui/Section";
 const Profile = () => {
   const { data, status } = useSession();
   const router = useRouter();
-  console.log(data);
 
   if (status !== "authenticated") router.replace("/login");
   return (

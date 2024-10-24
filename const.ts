@@ -148,4 +148,4 @@ export const menu = [
   },
 ];
 
-export const siteName = "Donut Shop";
+export const siteName = "Donut Adda";

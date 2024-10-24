@@ -3,7 +3,6 @@ import { Fragment, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { register, updateUser } from "@/actions/register";
-import { useSession } from "next-auth/react";
 import { IconLoader } from "@tabler/icons-react";
 
 export default function RegisterForm({
@@ -13,8 +12,6 @@ export default function RegisterForm({
   setUser,
   isAdmin,
 }) {
-  const { status } = useSession();
-
   const [error, setError] = useState();
   const router = useRouter();
   const ref = useRef(null);
@@ -36,6 +33,7 @@ export default function RegisterForm({
       if (isAdmin) {
         return router.back();
       }
+
       return router.push("/login");
     }
   };
@@ -63,7 +61,6 @@ export default function RegisterForm({
         <IconLoader size={24} className="animate-spin" />
       </div>
     );
-  if (status === "authenticated") return router.push("/");
   return (
     <form
       ref={ref}
@@ -72,7 +69,7 @@ export default function RegisterForm({
             bg-accent rounded-lg ${isUpdate ? "" : "max-w-md"}`}>
       {error && <div className="">{error}</div>}
       <h1 className="mb-5 w-full text-2xl font-semibold text-accent-foreground">
-        {isAdmin ? "Add User" : isUpdate ? "Update User" : "Sign Up"}
+        {isUpdate ? "Update User" : "Sign Up"}
       </h1>
 
       <label className="w-full text-sm">Full Name</label>
@@ -125,7 +122,7 @@ export default function RegisterForm({
       )}
 
       <button className="w-full p-2 rounded-lg bg-primary text-primary-foreground ">
-        {isAdmin ? "Add User" : isUpdate ? "Update" : "Sign Up"}
+        {isUpdate ? "Update" : "Sign Up"}
       </button>
       {!isAdmin && !isUpdate && (
         <Link

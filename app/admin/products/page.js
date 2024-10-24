@@ -1,11 +1,14 @@
 import React from "react";
 import { connectDB } from "@/lib/mongodb";
 import Section from "@/components/ui/Section";
-import Order from "@/models/Orders";
+import Products from "@/models/Products";
+import AddProduct from "@/components/AddProduct";
+import Image from "next/image";
+import ProductActions from "./ProductActions";
 
-const getOrders = async () => {
+const getMenu = async () => {
   await connectDB();
-  const data = await Order.find();
+  const data = await Products.find();
   return data;
 };
 
@@ -13,17 +16,19 @@ export const metadata = {
   title: "Admin Page",
 };
 
-const page = async () => {
-  const orders = await getOrders();
+const ProductsAdmin = async () => {
+  const menu = await getMenu();
 
   return (
     <Section cl=" h-full">
-      {orders.length === 0 ? (
+      <AddProduct />
+      {menu.length === 0 ? (
         <h1>There is nothing here...</h1>
       ) : (
-        <div className="grid grid-cols-1  ">
-          {/* {orders.map((item, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
+          {menu.map((item, i) => (
             <div
+              key={item_id}
               href={`/shop/${item?._id}`}
               className="border bg-card text-card-foreground border-primary flex flex-col justify-between">
               <Image
@@ -44,11 +49,11 @@ const page = async () => {
               </div>
               <ProductActions product={JSON.parse(JSON.stringify(item))} />
             </div>
-          ))} */}
+          ))}
         </div>
       )}
     </Section>
   );
 };
 
-export default page;
+export default ProductsAdmin;

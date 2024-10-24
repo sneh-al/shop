@@ -1,11 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { IconShoppingCart } from "@tabler/icons-react";
+import useUser from "@/lib/user";
+import { getUserByEmail } from "@/actions/register";
 
 const HeaderEnd = () => {
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
+  const addUser = useUser((state) => state.setUser);
+  const user = useUser((state) => state.user);
+
+  useEffect(() => {
+    if (data && !user) {
+      getUserByEmail(data.user.email).then((u) => {
+        console.log(u);
+        addUser(u);
+      });
+    }
+  }, [data, user, addUser]);
 
   return (
     <ul className="flex flex-wrap gap-2">
@@ -27,7 +41,11 @@ const HeaderEnd = () => {
               </svg>
             </Link>
           </li>
-          <li>cart</li>
+          <li>
+            <Link href="/cart">
+              <IconShoppingCart />
+            </Link>
+          </li>
         </>
       ) : (
         <li>

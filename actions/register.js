@@ -1,5 +1,6 @@
 "use server";
 import { connectDB } from "@/lib/mongodb";
+import Cart from "@/models/Cart";
 import Order from "@/models/Orders";
 import Product from "@/models/Products";
 import User from "@/models/User";
@@ -104,5 +105,27 @@ export const deleteUser = async (email) => {
     return {
       error: error.message,
     };
+  }
+};
+
+export const makeOrder = async (values) => {
+  try {
+    await connectDB();
+    const order = new Order(values);
+    await order.save();
+    return JSON.parse(JSON.stringify(order));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const saveCart = async (data) => {
+  try {
+    await connectDB();
+    const cart = new Cart(data);
+    await cart.save();
+    return JSON.parse(JSON.stringify(cart));
+  } catch (error) {
+    console.log(error);
   }
 };

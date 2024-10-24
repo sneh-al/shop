@@ -50,6 +50,7 @@ const ProductPage = async ({ params }) => {
               <div className="flex">
                 {[...Array(5)].map((_, index) => (
                   <svg
+                    key={index}
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -57,7 +58,8 @@ const ProductPage = async ({ params }) => {
                     stroke="currentColor"
                     className={
                       "size-6 stroke-yellow-500" +
-                      (index + 1 < product.rating ? " fill-yellow-500" : "")
+                      " " +
+                      (index + 1 <= product.rating ? " fill-yellow-500" : "")
                     }>
                     <path
                       stroke-linecap="round"
@@ -67,8 +69,6 @@ const ProductPage = async ({ params }) => {
                   </svg>
                 ))}
               </div>
-
-              {product.rating}
             </div>
             <div className="flex w-full justify-between bg-accent p-5 rounded-lg">
               <p>

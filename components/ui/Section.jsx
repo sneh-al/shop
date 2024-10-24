@@ -5,7 +5,7 @@ import Image from "next/image";
 const Section = ({ image, title, backButton, cl, children }) => {
   return (
     <section
-      className={`py-24 md:py-32 px-5 md:px-16 relative overflow-hidden ${cl}`}>
+      className={`py-24 md:py-32  md:px-16 relative overflow-hidden ${cl}`}>
       {image && (
         <Image
           src={image}
