@@ -35,8 +35,7 @@ const page = async () => {
                   {item?.totalPrice} ₹
                 </div>
               </div>
-
-              <VIewOrderDetail order={JSON.parse(JSON.stringify(item))} />
+              <VIewOrderDetail />
             </div>
           ))}
         </div>
