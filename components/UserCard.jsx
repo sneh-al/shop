@@ -1,6 +1,6 @@
 "use client";
 import React, { Fragment, useEffect, useState } from "react";
-import { getUserByEmail } from "@/actions/register";
+import { getUserByEmail } from "@/actions";
 import RegisterForm from "@/components/RegsiterForm";
 import { IconX } from "@tabler/icons-react";
 import { signOut } from "next-auth/react";

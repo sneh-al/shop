@@ -2,8 +2,9 @@
 import { Fragment, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { register, updateUser } from "@/actions/register";
+import { register, updateUser } from "@/actions";
 import { IconLoader } from "@tabler/icons-react";
+import toast from "react-hot-toast";
 
 export default function RegisterForm({
   user,
@@ -27,9 +28,11 @@ export default function RegisterForm({
     const r = await register(data);
     ref.current?.reset();
     if (r?.error) {
+      
       setError(r.error);
       return;
     } else {
+      toast.success("User registered successfully!");
       if (isAdmin) {
         return router.back();
       }
@@ -52,6 +55,7 @@ export default function RegisterForm({
       setError(r.error);
       return;
     }
+    toast.success("User updated successfully!");
     setUser(r);
     setIsUpdate(false);
   };

@@ -4,6 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { IconLoader } from "@tabler/icons-react";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const { status } = useSession();
@@ -22,6 +23,7 @@ export default function Login() {
       setError(res.error);
     }
     if (res?.ok) {
+      toast.success("Logged in successfully!");
       return router.push("/");
     }
   };

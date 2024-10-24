@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { getUserOrders } from "@/actions/register";
-import RegisterForm from "@/components/RegsiterForm";
-import Section from "@/components/ui/Section";
+import { getUserOrders } from "@/actions";
+
+import VIewOrderDetail from "@/components/VIewOrderDetail";
 
 const Orders = ({ email }) => {
   const [orders, setOrders] = useState([]);
-  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     getUserOrders(email).then((u) => {
       setOrders(u);
     });
-  }, [email, isUpdate]);
+  }, [email]);
 
   return (
     <div className=" shadow p-5  bg-secondary text-secondary-foreground">
       <h2 className="text-2xl mb-5">My Orders</h2>
       {orders.length == 0 && <p>You have not placed any orders yet.</p>}
       {orders.map((order, index) => (
-        <div key={index}>
-          <h3 className="text-xl mb-2">Order #{order._id}</h3>
-          <p>Order Date: {order.createdAt}</p>
-          <div>
-            <p>Total Amount: {order.totalAmount}</p>
-            <button>View Orders</button>
+        <div
+          key={order._id}
+          className=" bg-accent text-accent-foreground flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-5 p-5 ">
+            <h5 className="font-semibold font-xl">{order?.customerName}</h5>
+
+            <div className="d-flex justify-content-between align-items-center font-semibold">
+              {order?.totalPrice} ₹
+            </div>
           </div>
+          <VIewOrderDetail order={JSON.parse(JSON.stringify(order))} />
         </div>
       ))}
     </div>

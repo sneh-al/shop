@@ -5,6 +5,8 @@ import User from "@/models/User";
 import UserCard from "./UserCard";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 const getUser = async () => {
   await connectDB();
   const data = await User.find();

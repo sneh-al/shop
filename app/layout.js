@@ -3,6 +3,7 @@ import "./globals.css";
 import { Provider } from "./provider";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}>
+        <Toaster />
         {children}
       </body>
     </html>

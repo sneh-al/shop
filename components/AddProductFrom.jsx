@@ -1,11 +1,11 @@
 "use client";
-import { Fragment, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { addProduct, register, updateUser } from "@/actions/register";
+import { addProduct, updateProduct } from "@/actions";
 
-function AddProductFrom({ isUpdate, handleModal, product }) {
+function AddProductFrom({ isUpdate, handleModal, product, setProduct }) {
   const [error, setError] = useState();
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(isUpdate ? product.images : []);
   const router = useRouter();
   const ref = useRef(null);
   const handleSubmit = async (formData) => {
@@ -32,19 +32,20 @@ function AddProductFrom({ isUpdate, handleModal, product }) {
 
   const handleUpdate = async (formData) => {
     const data = {
-      email: formData.get("email"),
-      password: formData.get("password"),
+      id: product._id,
       name: formData.get("name"),
-      address: formData.get("address"),
-      type: "product",
+      description: formData.get("description"),
+      price: formData.get("price"),
+      rating: formData.get("rating"),
+      images: images,
     };
-    const r = await updateUser(data);
+    const r = await updateProduct(data);
     ref.current?.reset();
     if (r?.error) {
       setError(r.error);
       return;
     }
-    setUser(r);
+    setProduct(r);
     handleModal();
   };
   return (
@@ -87,7 +88,7 @@ function AddProductFrom({ isUpdate, handleModal, product }) {
       <label className="w-full text-sm">Rating</label>
       <input
         type="rating"
-        defaultValue={product?.price}
+        defaultValue={product?.rating}
         placeholder="Rating"
         className="w-full h-8 text-secondary border border-solid border-black py-1 px-2.5 rounded"
         name="rating"
@@ -99,7 +100,6 @@ function AddProductFrom({ isUpdate, handleModal, product }) {
       <input
         type="text"
         onChange={(e) => setImages([...images, e.target.value])}
-        defaultValue={product?.price}
         placeholder="Images"
         className="w-full h-8 text-secondary border border-solid border-black py-1 px-2.5 rounded"
       />

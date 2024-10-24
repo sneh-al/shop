@@ -2,8 +2,7 @@ import React from "react";
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Orders";
 import Section from "@/components/ui/Section";
-import ProductActions from "./ProductActions";
-import VIewOrderDetail from "./VIewOrderDetail";
+import VIewOrderDetail from "@/components/VIewOrderDetail";
 
 const getOrders = async () => {
   await connectDB();
@@ -23,11 +22,15 @@ const page = async () => {
       {orders.length === 0 ? (
         <h1>There is nothing here...</h1>
       ) : (
-        <div className="grid grid-cols-1 ">
+        <div className="grid grid-cols-1 gap-5 ">
+          <h1 className=" font-bold text-2xl bg-accent text-accent-foreground  p-5 text-left">
+            Order History
+          </h1>
+
           {orders.map((item, i) => (
             <div
               key={item._id}
-              className="border bg-card text-card-foreground border-primary flex flex-col justify-between">
+              className=" bg-accent text-accent-foreground flex flex-col justify-between">
               <div className="flex items-center justify-between gap-5 p-5 ">
                 <h5 className="font-semibold font-xl">{item?.customerName}</h5>
 
@@ -35,7 +38,7 @@ const page = async () => {
                   {item?.totalPrice} ₹
                 </div>
               </div>
-              <VIewOrderDetail />
+              <VIewOrderDetail order={JSON.parse(JSON.stringify(item))} />
             </div>
           ))}
         </div>

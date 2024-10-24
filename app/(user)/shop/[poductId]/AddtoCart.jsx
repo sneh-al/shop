@@ -6,6 +6,7 @@ import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
+import toast from "react-hot-toast";
 
 const AddtoCart = ({ product }) => {
   const [q, setQ] = React.useState(0);
@@ -16,7 +17,7 @@ const AddtoCart = ({ product }) => {
   const handleAdd = async () => {
     try {
       if (status === "unauthenticated")
-        alert("Please login to add product to cart");
+        return toast.error("Please login to add product to cart");
       addProduct({
         quantity: 1,
         productId: product._id,
@@ -25,9 +26,10 @@ const AddtoCart = ({ product }) => {
         image: product.images[0],
       });
 
-      alert("Product added to cart");
+      toast.success("Product added to cart");
       setQ(1);
     } catch (error) {
+      toast.error("Failed to add product to cart");
       console.log(error);
     }
   };

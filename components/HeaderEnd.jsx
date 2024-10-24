@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { IconShoppingCart } from "@tabler/icons-react";
 import useUser from "@/lib/user";
-import { getUserByEmail } from "@/actions/register";
+import { getUserByEmail } from "@/actions";
 
 const HeaderEnd = () => {
   const { data, status } = useSession();

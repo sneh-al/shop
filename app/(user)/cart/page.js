@@ -8,7 +8,8 @@ import { IconLetterXSmall, IconLoader, IconTrash } from "@tabler/icons-react";
 import ProductQuntity from "@/components/ProductQuntity";
 import { useRouter } from "next/navigation";
 import useUser from "@/lib/user";
-import { makeOrder, saveCart } from "@/actions/register";
+import { makeOrder, saveCart } from "@/actions";
+import toast from "react-hot-toast";
 
 const CartPage = () => {
   const { data, status } = useSession();
@@ -27,10 +28,12 @@ const CartPage = () => {
 
   const handleRemove = (product) => {
     removeProduct(product._id);
+    toast.success("Product removed from cart");
   };
 
   const handleClear = () => {
     clearCart();
+    toast.success("Cart cleared");
   };
 
   const handleCheckout = async () => {
@@ -48,6 +51,7 @@ const CartPage = () => {
         customerName: user.name,
         totalPrice: totalWithTax,
       });
+      toast.success("Order placed successfully");
       console.log(cartData, order);
     } catch (error) {
       console.log(error);

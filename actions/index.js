@@ -60,10 +60,11 @@ export const updateUser = async (values) => {
 };
 
 export const getUserOrders = async (email) => {
-  var query = { customer: email };
-
   try {
     await connectDB();
+    const user = await User.findOne({ email }).select("-password");
+    console.log(user);
+    const query = { userId: user._id };
     const orders = await Order.find(query);
     return JSON.parse(JSON.stringify(orders));
   } catch (e) {
@@ -78,6 +79,22 @@ export const addProduct = async (values) => {
     await product.save();
     return JSON.parse(JSON.stringify(product));
   } catch (error) {
+    return {
+      error: error.message,
+    };
+  }
+};
+
+export const updateProduct = async (values) => {
+  try {
+    await connectDB();
+    const product = await Product.findById(values.id);
+    values.updatedAt = new Date();
+    product.set(values);
+    await product.save();
+    return JSON.parse(JSON.stringify(product));
+  } catch (error) {
+    console.log(error);
     return {
       error: error.message,
     };
@@ -124,6 +141,16 @@ export const saveCart = async (data) => {
     await connectDB();
     const cart = new Cart(data);
     await cart.save();
+    return JSON.parse(JSON.stringify(cart));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCart = async (cartId) => {
+  try {
+    await connectDB();
+    const cart = await Cart.findById(cartId);
     return JSON.parse(JSON.stringify(cart));
   } catch (error) {
     console.log(error);

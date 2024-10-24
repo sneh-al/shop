@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteUser } from "@/actions/register";
+import { deleteUser } from "@/actions";
 import RegisterForm from "@/components/RegsiterForm";
 import { IconX } from "@tabler/icons-react";
 import { useState } from "react";

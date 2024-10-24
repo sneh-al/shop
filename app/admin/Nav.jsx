@@ -6,10 +6,10 @@ const Nav = () => {
       <h1 className="text-3xl font-bold">Admin Panel</h1>
       <ul className="flex gap-5 justify-center items-center">
         <li>
-          <a href="/admin">Products</a>
+          <a href="/admin">Orders</a>
         </li>
         <li>
-          <a href="/admin/orders">Orders</a>
+          <a href="/admin/products"> Products</a>
         </li>
         <li>
           <a href="/admin/users">Users</a>
